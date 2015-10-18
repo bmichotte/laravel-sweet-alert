@@ -16,11 +16,15 @@ class Flash {
      */
     public function create($title, $message, $type, $key = 'flash_message', $options = [])
     {
-        session()->flash($key, array_merge([
-            'title'     => $title,
-            'message'   => $message,
-            'type'      => $type
-        ], $options);
+        $default = [
+            'title'   => $title,
+            'message' => $message,
+            'type'    => $type,
+            'timer'   => 2500,
+            'showConfirmButton' => false
+        ];
+
+        session()->flash($key, array_merge($default, $options));
     }
 
     /**
@@ -63,4 +67,4 @@ class Flash {
     {
         return $this->create($title, $message, $type, 'sweet_alert_message_overlay', $options);
     }
-} 
+}
