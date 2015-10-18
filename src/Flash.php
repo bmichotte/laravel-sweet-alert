@@ -3,68 +3,74 @@
 namespace Infinety\SweetAlert;
 
 
-class Flash {
-
+class Flash
+{
     /**
      * Create the flash message.
      *
-     * @param        $title
-     * @param        $message
-     * @param        $type
-     * @param string $key
+     * @param string $title
+     * @param string $message
+     * @param string $type
      * @param array  $options
+     * @param string $callback
      */
-    public function create($title, $message, $type, $key = 'flash_message', $options = [])
+    public function create($title, $message, $type, $options = [], $callback = null)
     {
         $default = [
-            'title'   => $title,
-            'message' => $message,
-            'type'    => $type,
-            'timer'   => 2500,
+            'title'             => $title,
+            'message'           => $message,
+            'type'              => $type,
+            'timer'             => 2500,
             'showConfirmButton' => false
         ];
 
-        session()->flash($key, array_merge($default, $options));
+        session()->flash('flash_message', ['options' => array_merge($default, $options), 'callback' => $callback]);
     }
 
     /**
-     * @param $title
-     * @param $message
+     * @param string $title
+     * @param string $message
      * @param array  $options
+     * @param string $callback
      */
-    public function info($title, $message, $options = [])
+    public function info($title, $message, $options = [], $callback = null)
     {
-        return $this->create($title, $message, 'info', 'flash_message', $options);
+        return $this->create($title, $message, 'info', $options, $callback);
     }
 
     /**
-     * @param $title
-     * @param $message
+     * @param string $title
+     * @param string $message
      * @param array  $options
+     * @param string $callback
      */
-    public function success($title, $message, $options = [])
+    public function success($title, $message, $options = [], $callback = null)
     {
-        return $this->create($title, $message, 'success', 'flash_message', $options);
+        return $this->create($title, $message, 'success', $options, $callback);
     }
 
     /**
-     * @param $title
-     * @param $message
+     * @param string $title
+     * @param string $message
      * @param array  $options
+     * @param string $callback
      */
-    public function error($title, $message, $options = [])
+    public function error($title, $message, $options = [], $callback = null)
     {
-        return $this->create($title, $message, 'error', 'flash_message', $options);
+        return $this->create($title, $message, 'error', $options, $callback);
     }
 
     /**
-     * @param        $title
-     * @param        $message
+     * @param string $title
+     * @param string $message
      * @param string $type
      * @param array  $options
+     * @param string $callback
      */
-    public function overlay($title, $message, $type = 'success', $options = [])
+    public function overlay($title, $message, $type = 'success', $options = [], $callback = null)
     {
-        return $this->create($title, $message, $type, 'sweet_alert_message_overlay', $options);
+        $options = array_merge(['confirmButtonText' => 'Ok'], $options);
+
+        return $this->create($title, $message, $type, $options, $callback);
     }
 }
