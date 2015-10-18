@@ -12,50 +12,55 @@ class Flash {
      * @param        $message
      * @param        $type
      * @param string $key
+     * @param array  $options
      */
-    public function create($title, $message, $type, $key = 'flash_message')
+    public function create($title, $message, $type, $key = 'flash_message', $options = [])
     {
-        session()->flash($key,[
+        session()->flash($key, array_merge([
             'title'     => $title,
             'message'   => $message,
             'type'      => $type
-        ]);
+        ], $options);
     }
 
     /**
      * @param $title
      * @param $message
+     * @param array  $options
      */
-    public function info($title, $message)
+    public function info($title, $message, $options = [])
     {
-        return $this->create($title, $message, 'info');
+        return $this->create($title, $message, 'info', 'flash_message', $options);
     }
 
     /**
      * @param $title
      * @param $message
+     * @param array  $options
      */
-    public function success($title, $message)
+    public function success($title, $message, $options = [])
     {
-        return $this->create($title, $message, 'success');
+        return $this->create($title, $message, 'success', 'flash_message', $options);
     }
 
     /**
      * @param $title
      * @param $message
+     * @param array  $options
      */
-    public function error($title, $message)
+    public function error($title, $message, $options = [])
     {
-        return $this->create($title, $message, 'error');
+        return $this->create($title, $message, 'error', 'flash_message', $options);
     }
 
     /**
      * @param        $title
      * @param        $message
      * @param string $type
+     * @param array  $options
      */
-    public function overlay($title, $message, $type = 'success')
+    public function overlay($title, $message, $type = 'success', $options = [])
     {
-        return $this->create($title, $message, $type, 'sweet_alert_message_overlay');
+        return $this->create($title, $message, $type, 'sweet_alert_message_overlay', $options);
     }
 } 
